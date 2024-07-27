@@ -1,0 +1,19 @@
+name: vite-react-ts-starterkit
+
+services:
+  app:
+    build: . # Replace with the path to your application Dockerfile
+    container_name: app
+    ports:
+      - "5173:5173"
+    networks:
+      - virtual-net-vite-react-ts-starterkit
+    volumes:
+      # Source Code Mount (- .:/app): It allows you to make changes to the source code on your host machine,
+      # and these changes will be immediately reflected inside the container without needing to rebuild the image.
+      - .:/app
+      # Node Modules Mount (- /app/node_modules):
+      - /app/node_modules
+
+networks:
+  virtual-net-vite-react-ts-starterkit:
