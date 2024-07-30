@@ -13,7 +13,7 @@ const UserListItem = ({ item, index, onDelete }: UserListItemProps) => {
   return (
     <List.Item>
       <List.Item.Meta
-        avatar={<Avatar src={`${API_RANDOM_AVATAR_URL}${index}`} />}
+        avatar={<Avatar alt="Avatar" src={`${API_RANDOM_AVATAR_URL}${index}`} />}
         title={item.name}
         description={item.email}
       />
