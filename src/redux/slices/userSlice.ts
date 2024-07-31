@@ -9,8 +9,6 @@ const initialState: UserState = {
   users: [],
 };
 
-// const initialState: User[] = Object.values([]);
-
 const userSlice = createSlice({
   name: "user",
   initialState: initialState,
