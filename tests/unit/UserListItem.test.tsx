@@ -15,13 +15,15 @@ const mockOnDelete = vi.fn();
 
 // Mock window.matchMedia
 // https://stackoverflow.com/a/41619307
-window.matchMedia = window.matchMedia || function() {
+window.matchMedia =
+  window.matchMedia ||
+  function () {
     return {
-        matches: false,
-        addListener: function() {},
-        removeListener: function() {}
+      matches: false,
+      addListener: function () {},
+      removeListener: function () {},
     };
-};
+  };
 
 describe("UserListItem", () => {
   it("renders user information and delete button", () => {
@@ -42,7 +44,7 @@ describe("UserListItem", () => {
     expect(deleteButton).toBeInTheDocument();
   });
 
-  it('calls onDelete function on button click', () => {
+  it("calls onDelete function on button click", () => {
     render(<UserListItem item={mockUser} index={0} onDelete={mockOnDelete} />);
 
     const deleteButton = screen.getByRole("button");

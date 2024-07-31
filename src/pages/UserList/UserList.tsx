@@ -12,11 +12,16 @@ import { RandomUserResponse } from "../../types/randomUserResponse.types";
 import { User } from "../../types/user.types";
 import apiUtil from "../../utils/apiUtil";
 
+// Redux
+import { useDispatch, useSelector } from "react-redux";
+import { addUser, deleteUser, setUsers } from "../../redux/slices/userSlice";
+
 function UserList() {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<AxiosError | null>(null);
 
-  const [users, setUsers] = useState<User[]>([]);
+  const users: User[] = useSelector((state: any) => state.user.users);
+  const dispatch = useDispatch();
 
   const hasRunOnce = useRef(false);
   useEffect(() => {
@@ -25,10 +30,7 @@ function UserList() {
     if (!hasRunOnce.current) {
       // Code that should run only once on mount
       hasRunOnce.current = true;
-
-      setTimeout(() => {
-        getUsers();
-      }, 2000);
+      getUsers();
     }
 
     return () => console.log("unmounting");
@@ -39,7 +41,7 @@ function UserList() {
       url: API_BACKEND_URL,
       method: API_METHOD.GET,
       onSuccess: (data: User[]) => {
-        setUsers(data);
+        dispatch(setUsers(data));
       },
       onFailure: (error: any) => {
         console.log(error);
@@ -87,7 +89,7 @@ function UserList() {
           email: randomUserResonse.results[0].email,
         },
         onSuccess: (data: User) => {
-          setUsers([...users, data]);
+          dispatch(addUser(data));
         },
         onFailure: (error: any) => {
           console.log(error);
@@ -108,7 +110,7 @@ function UserList() {
       url: `${API_BACKEND_URL}/${id}`,
       method: API_METHOD.DELETE,
       onSuccess: (data: User) => {
-        setUsers(users.filter((user) => user.id !== data.id));
+        dispatch(deleteUser(data.id));
       },
       onFailure: (error: any) => {
         console.log(error);
