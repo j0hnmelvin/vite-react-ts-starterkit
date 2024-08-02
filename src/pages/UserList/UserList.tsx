@@ -128,7 +128,7 @@ function UserList() {
   return (
     <>
       <Loading isLoading={isLoading} error={error} />
-      <Button onClick={hanldleGenerateRandomUser} block>
+      <Button type="primary" onClick={hanldleGenerateRandomUser} block>
         Generate Random User
       </Button>
       <List
